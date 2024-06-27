@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Associação Diacrônica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">Jogo de Associação Diacrônica</div>
+        <div class="content">
+            <div class="start-screen" id="startScreen">
+                <p>Bem-vindo ao Jogo de Associação Diacrônica! Teste seus conhecimentos sobre palavras e expressões regionais do Brasil.</p>
+                <button class="start-button" id="startButton">Iniciar Jogo</button>
+            </div>
+            <div class="game-screen" id="gameScreen" style="display: none;">
+                <div class="word" id="word"></div>
+                <ul class="options" id="options"></ul>
+                <div class="result" id="result"></div>
+            </div>
+            <div class="game-over-screen" id="gameOverScreen" style="display: none;">
+                <p id="finalScore"></p>
+                <button class="restart-button" id="restartButton">Reiniciar Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const words = [
+            { word: "Bah", options: ["Região Sul", "Região Nordeste", "Região Sudeste"], answer: "Região Sul" },
+            { word: "Oxente", options: ["Região Norte", "Região Nordeste", "Região Centro-Oeste"], answer: "Região Nordeste" },
+            { word: "Trem bão", options: ["Região Sudeste", "Região Sul", "Região Norte"], answer: "Região Sudeste" },
+            { word: "Tchê", options: ["Região Sul", "Região Nordeste", "Região Sudeste"], answer: "Região Sul" },
+            { word: "Égua", options: ["Região Norte", "Região Nordeste", "Região Sudeste"], answer: "Região Norte" },
+            { word: "Pia", options: ["Região Sul", "Região Norte", "Região Nordeste"], answer: "Região Sul" }
+        ];
+
+        let currentWordIndex = 0;
+        let score = 0;
+
+        document.getElementById('startButton').addEventListener('click', startGame);
+        document.getElementById('restartButton').addEventListener('click', restartGame);
+
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            showWord();
+        }
+
+        function showWord() {
+            if (currentWordIndex < words.length) {
+                const currentWord = words[currentWordIndex];
+                document.getElementById('word').innerText = currentWord.word;
+                const optionsList = document.getElementById('options');
+                optionsList.innerHTML = '';
+                currentWord.options.forEach(option => {
+                    const li = document.createElement('li');
+                    li.innerText = option;
+                    li.addEventListener('click', () => checkAnswer(option, currentWord.answer));
+                    optionsList.appendChild(li);
+                });
+            } else {
+                endGame();
+            }
+        }
+
+        function checkAnswer(selected, correct) {
+            const resultDiv = document.getElementById('result');
+            if (selected === correct) {
+                score += 10;
+                resultDiv.innerText = 'Correto!';
+                resultDiv.style.color = 'green';
+            } else {
+                resultDiv.innerText = 'Incorreto! A resposta correta é ' + correct + '.';
+                resultDiv.style.color = 'red';
+            }
+            currentWordIndex++;
+            setTimeout(() => {
+                resultDiv.innerText = '';
+                showWord();
+            }, 1000);
+        }
+
+        function endGame() {
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('gameOverScreen').style.display = 'block';
+            document.getElementById('finalScore').innerText = 'Fim de Jogo! Sua pontuação final é: ' + score;
+        }
+
+        function restartGame() {
+            currentWordIndex = 0;
+            score = 0;
+            document.getElementById('gameOverScreen').style.display = 'none';
+            startGame();
+        }
+    </script>
+</body>
+</html>

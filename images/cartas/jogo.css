@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 600px;
+    transition: transform 0.3s ease;
+}
+.container:hover {
+    transform: scale(1.02);
+}
+.header {
+    background: #6200ea;
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+}
+.content {
+    padding: 20px;
+}
+.word {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #6200ea;
+}
+.options {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.options li {
+    background: #ddd;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.options li:hover {
+    background: #ccc;
+}
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.start-button, .restart-button {
+    background: #6200ea;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.start-button:hover, .restart-button:hover {
+    background: #4500b5;
+}
+.start-screen, .game-over-screen {
+    display: none;
+}
